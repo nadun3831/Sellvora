@@ -12,6 +12,7 @@ public class Order {
     private LocalDateTime orderDate;
     private String status;
     private String customerEmail;
+    private double totalAmount;
     private List<Product> products;
 
 }
