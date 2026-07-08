@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EcoShop Admin - Products</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#6d7a72",
+                        "on-secondary-fixed-variant": "#294e3f",
+                        "status-delivered": "#059669",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#fefcff",
+                        "secondary": "#416656",
+                        "secondary-container": "#c3ecd7",
+                        "secondary-fixed": "#c3ecd7",
+                        "inverse-surface": "#2e3132",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e7e8e9",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#d9dadb",
+                        "on-secondary-fixed": "#002115",
+                        "status-pending": "#F59E0B",
+                        "status-confirmed": "#3B82F6",
+                        "tertiary-fixed": "#dce2f3",
+                        "surface-tint": "#006c4a",
+                        "tertiary-fixed-dim": "#c0c7d6",
+                        "surface-bright": "#f8f9fa",
+                        "error-red": "#DC2626",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f3f4f5",
+                        "on-primary-fixed": "#002114",
+                        "primary-container": "#00855d",
+                        "inverse-on-surface": "#f0f1f2",
+                        "inverse-primary": "#68dba9",
+                        "sage-wash": "#F0FDF4",
+                        "on-secondary-container": "#476c5b",
+                        "surface": "#f8f9fa",
+                        "tertiary": "#555c6a",
+                        "on-tertiary-fixed": "#151c27",
+                        "on-tertiary-fixed-variant": "#404754",
+                        "tertiary-container": "#6e7583",
+                        "on-surface": "#191c1d",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#85f8c4",
+                        "leaf-emerald": "#065F46",
+                        "secondary-fixed-dim": "#a8cfbc",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#edeeef",
+                        "on-secondary": "#ffffff",
+                        "primary": "#006948",
+                        "primary-fixed-dim": "#68dba9",
+                        "background": "#f8f9fa",
+                        "surface-variant": "#e1e3e4",
+                        "on-primary-container": "#f5fff7",
+                        "outline-variant": "#bccac0",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-primary-fixed-variant": "#005137",
+                        "on-background": "#191c1d",
+                        "on-surface-variant": "#3d4a42"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar (Web) -->
+<header class="bg-surface-container-lowest dark:bg-on-background text-primary dark:text-primary-fixed font-body-md text-body-md docked full-width top-0 shadow-sm bg-surface-container-lowest hidden md:block">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">
+                EcoShop Admin
+            </div>
+<nav class="flex items-center gap-6">
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary hover:bg-sage-wash dark:hover:bg-on-secondary-fixed-variant transition-colors px-3 py-2 rounded-md" href="#">Orders</a>
+<a class="text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 font-bold opacity-80 transition-opacity duration-150" href="#">Products</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary hover:bg-sage-wash dark:hover:bg-on-secondary-fixed-variant transition-colors px-3 py-2 rounded-md" href="#">Categories</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary hover:bg-sage-wash dark:hover:bg-on-secondary-fixed-variant transition-colors px-3 py-2 rounded-md" href="#">Payments</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="relative">
+<input class="pl-10 pr-4 py-2 rounded-full border border-secondary text-body-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-surface-container-lowest w-64 transition-all" placeholder="Search..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary hover:bg-sage-wash p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary hover:bg-sage-wash p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="Admin profile" class="w-10 h-10 rounded-full object-cover border-2 border-primary" data-alt="A professional headshot of an administrative user, simple clean background, professional attire, soft lighting, minimalist EcoShop context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrfZ5WGLcGHbjiRNubFS8G8q86MOE8VmrxTlKDsE4SHuZvcgmWC_0fhfsR1jqjUEBGaksSy53e725Wikup-hFmJLJx7USdTIcQq6ZX6u9oP-9JGOk0wWy3HNmSxT0Gzr6gm4sNAzbm18rZXprExJJr8DkTei03RfHRM66MDlR8I1rsZLMNrMnrvTgh8FsMzdL1_KbwajXoSLj0WQdPU8mAGBudkVDqirXiDfAE2eejF9bTDRNKRSUzuyqrYjMW14YeJ0RKoNLLq4dP"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Desktop/Tablet) -->
+<aside class="bg-surface dark:bg-inverse-surface text-primary dark:text-primary-fixed-dim font-label-md text-label-md docked h-screen left-0 w-64 bg-surface-container-low dark:bg-on-background flat no shadows hidden lg:flex flex-col h-full p-base border-r border-outline-variant dark:border-on-secondary-fixed-variant shrink-0">
+<div class="p-4 mb-6">
+<h2 class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">EcoShop</h2>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">Management Suite</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-sage-wash dark:hover:bg-on-secondary-fixed-variant transition-all rounded-xl group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-on-secondary-fixed rounded-xl scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span>Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-sage-wash dark:hover:bg-on-secondary-fixed-variant transition-all rounded-xl group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="shopping_cart">shopping_cart</span>
+<span>Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-sage-wash dark:hover:bg-on-secondary-fixed-variant transition-all rounded-xl group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="analytics">analytics</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-sage-wash dark:hover:bg-on-secondary-fixed-variant transition-all rounded-xl group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-background px-margin-mobile md:px-margin-desktop py-8">
+<div class="max-w-container-max mx-auto">
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+<div>
+<h1 class="text-headline-lg font-headline-lg md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-background">Products</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-2">Manage your inventory and product listings.</p>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md py-2.5 px-5 rounded-lg flex items-center gap-2 transition-colors shadow-sm" onclick="document.getElementById('slide-over').classList.remove('translate-x-full')">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                        Add New Product
+                    </button>
+</div>
+<!-- Filters & Controls -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm border border-surface-variant mb-8 flex flex-col sm:flex-row gap-4 items-center justify-between">
+<div class="flex flex-wrap gap-2 w-full sm:w-auto">
+<select class="border-secondary rounded-lg text-body-sm text-on-surface py-2 pl-3 pr-8 focus:border-primary focus:ring-1 focus:ring-primary bg-surface w-full sm:w-auto">
+<option>All Categories</option>
+<option>Sustainable Home</option>
+<option>Organic Apparel</option>
+<option>Zero Waste Kitchen</option>
+</select>
+<select class="border-secondary rounded-lg text-body-sm text-on-surface py-2 pl-3 pr-8 focus:border-primary focus:ring-1 focus:ring-primary bg-surface w-full sm:w-auto">
+<option>Stock Status</option>
+<option>In Stock</option>
+<option>Low Stock</option>
+<option>Out of Stock</option>
+</select>
+</div>
+<div class="text-label-sm font-label-sm text-on-surface-variant w-full sm:w-auto text-right">
+                        Showing 12 of 156 products
+                    </div>
+</div>
+<!-- Product Grid (Bento/Glassmorphism style approach) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-[1rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-surface-variant group flex flex-col relative">
+<div class="absolute top-3 right-3 z-10 flex gap-2">
+<span class="bg-status-delivered/10 text-status-delivered font-label-sm text-label-sm px-2.5 py-1 rounded-full backdrop-blur-sm border border-status-delivered/20">In Stock (45)</span>
+</div>
+<div class="aspect-square relative overflow-hidden bg-surface-container-low">
+<img alt="Bamboo Toothbrush Set" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A clean, bright product shot of a bamboo toothbrush set lying flat on a natural stone surface. Soft daylight, minimalist eco-friendly aesthetic, high resolution, soft shadows, green marketplace theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1OUUBCoK1sXQh7PESmTZqyS-U8hDgPXi5vM8xO5Ol1ml3ogpWWENFew-WDbgTkwUVPHQzj0XXrk6UxzoJR5qzha_-a6E2g6AzcSmI9hJ0RuvvBy0h3deuazxhVTvbkcoAcU_okqvWKyCtQy9icyTUr4hDDEDQxwZrm1r_t9HdTY7GZU5aUR1Sq3Y9BWedpLrzPpEern0aWU6BkIs3vUl1gC_fn0H60SPJffaxM-Gleicx-d_AjDuErHh_K_6R5JdDf8NPeO1zRQU0"/>
+</div>
+<div class="p-5 flex-1 flex flex-col">
+<div class="text-label-sm font-label-sm text-primary mb-1">Zero Waste Kitchen</div>
+<h3 class="text-headline-sm font-headline-sm text-on-background mb-2 line-clamp-1">Bamboo Toothbrush Set</h3>
+<div class="flex items-end justify-between mt-auto pt-4 border-t border-surface-variant/50">
+<span class="text-headline-md font-headline-md text-on-surface">$14.99</span>
+<button class="text-secondary hover:text-primary p-1.5 rounded-full hover:bg-sage-wash transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-[1rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-surface-variant group flex flex-col relative">
+<div class="absolute top-3 right-3 z-10 flex gap-2">
+<span class="bg-status-pending/10 text-status-pending font-label-sm text-label-sm px-2.5 py-1 rounded-full backdrop-blur-sm border border-status-pending/20">Low Stock (3)</span>
+</div>
+<div class="aspect-square relative overflow-hidden bg-surface-container-low">
+<img alt="Organic Cotton Produce Bags" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-quality product photo of organic cotton reusable produce bags filled with fresh vegetables, sitting on a wooden table. Bright, airy lighting, fresh and organic feel, eco-commerce aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4DlheOtB2HjguSdy-1fRwXf2dseg25pTyiiz01uN_YUrDY7RjjTaqOwo3gVfGZR7XtXJ-gdNViWAUtrqtdrKzjTOiIYcUiQtGOz01avCUn1OjHB-qSuZwe4J8RTMuTS4XCS3Q4C6NvFD8hJu7QfYrF3-LaCBHzz92acq01tdAiFO1J6UQthuZilyZCJ5Pl5M1kpFmZ8BDKc423vMtaM8cLFkG_-nn__rVrslPKgo7_J_peBUfz4uwbqkZhhkirokrbTjAD3GfnNNv"/>
+</div>
+<div class="p-5 flex-1 flex flex-col">
+<div class="text-label-sm font-label-sm text-primary mb-1">Sustainable Home</div>
+<h3 class="text-headline-sm font-headline-sm text-on-background mb-2 line-clamp-1">Organic Cotton Produce Bags</h3>
+<div class="flex items-end justify-between mt-auto pt-4 border-t border-surface-variant/50">
+<span class="text-headline-md font-headline-md text-on-surface">$22.00</span>
+<button class="text-secondary hover:text-primary p-1.5 rounded-full hover:bg-sage-wash transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest rounded-[1rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-surface-variant group flex flex-col relative opacity-75">
+<div class="absolute top-3 right-3 z-10 flex gap-2">
+<span class="bg-error-red/10 text-error-red font-label-sm text-label-sm px-2.5 py-1 rounded-full backdrop-blur-sm border border-error-red/20">Out of Stock</span>
+</div>
+<div class="aspect-square relative overflow-hidden bg-surface-container-low grayscale-[50%]">
+<img alt="Stainless Steel Water Bottle" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A minimalist shot of a reusable stainless steel water bottle in matte olive green. Placed on a concrete surface against a soft white background. Calm, clean, eco-friendly product photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8_QrOAgsGRTCRyVB-3giKzDxBGhKND4uhjsFPIu2yWZGL1qw6LHv0Q83MXpq6G8suK2XwMnDfTFSTrxPB1bNaACwZtiNIs1rbuRuK1EcjeUMqlOOr8un-iDgOz2d5TX4cssObYqaOBtKP4wSjFMZBxL3gD_O4DGQIXqCzoNMCTFREjttx22A0FLmOZvOmUtnFXOI1gcrsvtpLueigZgVjbciasgNT5n5jhGScA48cqmYlSwBHj3yyMq9N46RdyhXZxH7zfLSi7XYZ"/>
+</div>
+<div class="p-5 flex-1 flex flex-col">
+<div class="text-label-sm font-label-sm text-primary mb-1">On The Go</div>
+<h3 class="text-headline-sm font-headline-sm text-on-background mb-2 line-clamp-1">Matte Steel Water Bottle</h3>
+<div class="flex items-end justify-between mt-auto pt-4 border-t border-surface-variant/50">
+<span class="text-headline-md font-headline-md text-on-surface-variant">$34.50</span>
+<button class="text-secondary hover:text-primary p-1.5 rounded-full hover:bg-sage-wash transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest rounded-[1rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-surface-variant group flex flex-col relative">
+<div class="absolute top-3 right-3 z-10 flex gap-2">
+<span class="bg-status-delivered/10 text-status-delivered font-label-sm text-label-sm px-2.5 py-1 rounded-full backdrop-blur-sm border border-status-delivered/20">In Stock (120)</span>
+</div>
+<div class="aspect-square relative overflow-hidden bg-surface-container-low">
+<img alt="Solid Dish Soap Block" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Product photography of a solid dish soap bar sitting on a wooden slat soap dish next to a sisal brush. Warm natural lighting, inviting kitchen setting, sustainable living aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD7AdHUNbkUINI5HSnw27Fs5_NFxjn1wEN4RG8S7jEUigCJvdYpXpQV_77jW_kZzfWAINCpg74opWVYY7aaYMtdKqcmnMZyZl0PFwuezDVkqsrDFZfZEB-aAjuWG0wrNPpX1vVE21FSECulmYQkBGfGAtFKjr7DWzuom5IVTZxnCb5FQ1EIM3iZWnRiUBNOXVEH7UWlmA1h31-oHu-UWwE5N0gTG5Czuvgmyb5xiqzUasMcq7kY9cDcsNaXfe8BbQO1qDzYmw3Bfys"/>
+</div>
+<div class="p-5 flex-1 flex flex-col">
+<div class="text-label-sm font-label-sm text-primary mb-1">Zero Waste Kitchen</div>
+<h3 class="text-headline-sm font-headline-sm text-on-background mb-2 line-clamp-1">Solid Dish Soap Block</h3>
+<div class="flex items-end justify-between mt-auto pt-4 border-t border-surface-variant/50">
+<span class="text-headline-md font-headline-md text-on-surface">$18.99</span>
+<button class="text-secondary hover:text-primary p-1.5 rounded-full hover:bg-sage-wash transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-on-background text-secondary dark:text-secondary-fixed-dim font-label-sm text-label-sm full-width border-t border-outline-variant dark:border-on-secondary-fixed-variant flat no shadows w-full py-8 px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto mt-12 gap-4">
+<div>
+                    © 2024 EcoShop Order Management. All rights reserved.
+                </div>
+<div class="flex gap-6">
+<a class="text-on-tertiary-fixed-variant dark:text-outline-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-tertiary-fixed-variant dark:text-outline-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-tertiary-fixed-variant dark:text-outline-variant hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</footer>
+</main>
+</div>
+<!-- Slide-over Panel for Adding Product -->
+<div aria-labelledby="slide-over-title" aria-modal="true" class="fixed inset-0 z-50 overflow-hidden transform translate-x-full transition-transform duration-300 ease-in-out" id="slide-over" role="dialog">
+<div class="absolute inset-0 bg-on-background/20 backdrop-blur-sm transition-opacity" onclick="document.getElementById('slide-over').classList.add('translate-x-full')"></div>
+<div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+<div class="pointer-events-auto w-screen max-w-md">
+<div class="flex h-full flex-col overflow-y-scroll bg-surface-container-lowest shadow-2xl">
+<div class="px-4 py-6 sm:px-6 bg-surface-container-low border-b border-surface-variant flex items-center justify-between">
+<h2 class="text-headline-sm font-headline-sm text-on-background" id="slide-over-title">Add New Product</h2>
+<button class="rounded-md bg-transparent text-outline hover:text-on-surface focus:outline-none focus:ring-2 focus:ring-primary p-1 transition-colors" onclick="document.getElementById('slide-over').classList.add('translate-x-full')" type="button">
+<span class="sr-only">Close panel</span>
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="relative flex-1 px-4 py-6 sm:px-6">
+<form class="space-y-6">
+<!-- Image Upload Area -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-2">Product Image</label>
+<div class="mt-1 flex justify-center rounded-xl border-2 border-dashed border-outline-variant px-6 py-10 hover:bg-sage-wash/50 transition-colors cursor-pointer group">
+<div class="text-center">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-4xl mb-2 transition-colors">add_photo_alternate</span>
+<div class="flex text-body-sm text-on-surface-variant justify-center">
+<span class="relative cursor-pointer rounded-md font-semibold text-primary focus-within:outline-none focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 hover:text-primary-container">
+<span>Upload a file</span>
+</span>
+<p class="pl-1">or drag and drop</p>
+</div>
+<p class="text-xs text-outline mt-1">PNG, JPG, GIF up to 10MB</p>
+</div>
+</div>
+</div>
+<!-- Form Fields -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="product-name">Product Name</label>
+<input class="block w-full rounded-lg border-secondary bg-surface text-on-surface focus:border-primary focus:ring-primary sm:text-body-sm" id="product-name" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="price">Price</label>
+<div class="relative mt-1 rounded-md shadow-sm">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="text-outline sm:text-sm">$</span>
+</div>
+<input class="block w-full rounded-lg border-secondary bg-surface pl-7 text-on-surface focus:border-primary focus:ring-primary sm:text-body-sm" id="price" placeholder="0.00" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="stock">Initial Stock</label>
+<input class="block w-full rounded-lg border-secondary bg-surface text-on-surface focus:border-primary focus:ring-primary sm:text-body-sm" id="stock" type="number" value="0"/>
+</div>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="category">Category</label>
+<select class="block w-full rounded-lg border-secondary bg-surface text-on-surface focus:border-primary focus:ring-primary sm:text-body-sm py-2 px-3" id="category">
+<option>Select a category...</option>
+<option>Sustainable Home</option>
+<option>Organic Apparel</option>
+<option>Zero Waste Kitchen</option>
+</select>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="description">Description</label>
+<textarea class="block w-full rounded-lg border-secondary bg-surface text-on-surface focus:border-primary focus:ring-primary sm:text-body-sm" id="description" rows="3"></textarea>
+</div>
+</form>
+</div>
+<div class="flex flex-shrink-0 justify-end px-4 py-4 border-t border-surface-variant bg-surface-container-lowest gap-3">
+<button class="rounded-lg bg-secondary px-4 py-2 text-label-md font-label-md text-leaf-emerald shadow-sm hover:bg-secondary-container transition-colors" onclick="document.getElementById('slide-over').classList.add('translate-x-full')" type="button">Cancel</button>
+<button class="inline-flex justify-center rounded-lg bg-primary px-4 py-2 text-label-md font-label-md text-on-primary shadow-sm hover:bg-primary-container focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors" type="submit">Save Product</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>
