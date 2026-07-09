@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { Routes, Route, useNavigate, Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/dashboard/Dashboard';
 import OrderList from './pages/orders/OrderList';
@@ -21,10 +21,28 @@ import CustomerOrders from './pages/customer/CustomerOrders';
 import Login from './pages/auth/Login';
 import api from './api/axiosClient';
 
+// Legal Pages
+import PrivacyPolicy from './pages/legal/PrivacyPolicy';
+import TermsOfService from './pages/legal/TermsOfService';
+import HelpCenter from './pages/legal/HelpCenter';
+
 export default function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem('isLoggedIn') === 'true');
   const [role, setRole] = useState(() => localStorage.getItem('role') || 'customer');
+  const [showNotifications, setShowNotifications] = useState(false);
+  const notifRef = useRef(null);
+
+  // Close notification dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (notifRef.current && !notifRef.current.contains(e.target)) {
+        setShowNotifications(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
   const [cart, setCart] = useState(() => {
     try {
       const saved = localStorage.getItem('cart');
@@ -210,10 +228,37 @@ export default function App() {
               Logout
             </button>
 
-            <button className="icon-btn">
-              <span className="material-symbols-outlined">notifications</span>
-              <span className="notification-dot"></span>
-            </button>
+            <div ref={notifRef} style={{ position: 'relative' }}>
+              <button className="icon-btn" onClick={() => setShowNotifications(!showNotifications)}>
+                <span className="material-symbols-outlined">notifications</span>
+              </button>
+              {showNotifications && (
+                <div style={{
+                  position: 'absolute', top: '100%', right: 0, marginTop: '8px',
+                  width: '280px', background: 'var(--surface-high)',
+                  border: '1px solid var(--outline-variant)', borderRadius: '12px',
+                  boxShadow: 'var(--shadow-lg)', zIndex: 1000, overflow: 'hidden',
+                  animation: 'fadeIn 0.15s ease-out'
+                }}>
+                  <div style={{
+                    padding: '14px 16px', borderBottom: '1px solid var(--outline-variant)',
+                    fontWeight: '600', fontSize: '14px', color: 'var(--on-surface)'
+                  }}>
+                    Notifications
+                  </div>
+                  <div style={{
+                    padding: '32px 16px', textAlign: 'center'
+                  }}>
+                    <span className="material-symbols-outlined" style={{
+                      fontSize: '40px', color: 'var(--on-surface-variant)', opacity: 0.4, marginBottom: '8px'
+                    }}>notifications_off</span>
+                    <p style={{ fontSize: '13px', color: 'var(--on-surface-variant)', margin: '8px 0 0' }}>
+                      No new notifications
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
             <div className="avatar">{role === 'admin' ? 'A' : 'C'}</div>
           </div>
         </header>
@@ -236,6 +281,9 @@ export default function App() {
                 <Route path="/payments" element={<PaymentList />} />
                 <Route path="/payments/new" element={<PaymentForm />} />
                 <Route path="/payments/:id/edit" element={<PaymentForm />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms-of-service" element={<TermsOfService />} />
+                <Route path="/help-center" element={<HelpCenter />} />
               </>
             ) : (
               <>
@@ -243,17 +291,20 @@ export default function App() {
                 <Route path="/cart" element={<CustomerCart cart={cart} updateCartQty={updateCartQty} removeFromCart={removeFromCart} clearCart={clearCart} />} />
                 <Route path="/my-orders" element={<CustomerOrders />} />
                 <Route path="/orders/:id" element={<OrderDetails role={role} />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms-of-service" element={<TermsOfService />} />
+                <Route path="/help-center" element={<HelpCenter />} />
               </>
             )}
           </Routes>
         </main>
 
         <footer className="app-footer">
-          <span>© 2024 EcoShop Order Management. All rights reserved.</span>
+          <span>© 2026 Sellvora Order Management. All rights reserved.</span>
           <div style={{ display: 'flex', gap: 24 }}>
-            <a href="#" className="text-muted">Privacy Policy</a>
-            <a href="#" className="text-muted">Terms of Service</a>
-            <a href="#" className="text-muted">Help Center</a>
+            <Link to="/privacy-policy" className="text-muted">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="text-muted">Terms of Service</Link>
+            <Link to="/help-center" className="text-muted">Help Center</Link>
           </div>
         </footer>
       </div>
