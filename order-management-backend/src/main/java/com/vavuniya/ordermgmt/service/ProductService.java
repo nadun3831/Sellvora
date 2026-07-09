@@ -17,8 +17,33 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public Product createProduct(Product product) {
+        if (product.getProductId() == null || product.getProductId().isBlank()) {
+            product.setProductId(getNextProductId());
+        }
         validateProduct(product);
         return productRepository.save(product);
+    }
+
+    private String getNextProductId() {
+        List<Product> products = productRepository.findAll();
+        int maxId = 0;
+        for (Product p : products) {
+            try {
+                String pid = p.getProductId();
+                if (pid != null) {
+                    String numericPart = pid.replaceAll("\\D+", "");
+                    if (!numericPart.isEmpty()) {
+                        int idVal = Integer.parseInt(numericPart);
+                        if (idVal > maxId) {
+                            maxId = idVal;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                // Ignore parsing errors
+            }
+        }
+        return "PROD-" + String.format("%03d", maxId + 1);
     }
 
     public List<Product> getAllProducts() {

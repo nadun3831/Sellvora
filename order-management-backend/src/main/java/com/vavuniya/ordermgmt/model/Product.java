@@ -20,7 +20,6 @@ public class Product {
     @Id
     private String id;
 
-    @NotBlank(message = "productId is required")
     private String productId;
 
     @NotBlank(message = "productName is required")
