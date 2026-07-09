@@ -1,0 +1,29 @@
+# Dependency directories
+node_modules/
+order-management-frontend/node_modules/
+order-management-frontend/dist/
+
+# Local databases
+mongo_data/
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.classpath
+.project
+
+# Backend builds
+**/target/
+order-management-backend/target/
+.mvn/wrapper/maven-wrapper.jar
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
